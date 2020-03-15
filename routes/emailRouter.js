@@ -25,12 +25,12 @@ router.post('/', (req, res)=>{
 
     async function main() {
         let transporter = nodemailer.createTransport({
-            host: "smtp.mail.com",
+            host: process.env.EMAIL_HOST,
             port: 587,
             secure: false, // true for 465, false for other ports
             auth: {
-                user: process.env.EMAIL_SENDER, // generated ethereal user
-                pass: process.env.EMAIL_PASS // generated ethereal password
+                user: process.env.EMAIL_SENDER,
+                pass: process.env.EMAIL_PASS
             },
         });
 
