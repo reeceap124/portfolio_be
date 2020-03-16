@@ -25,17 +25,11 @@ router.post('/', (req, res)=>{
 
     
         let transporter = nodeMailer.createTransport({
-            // host: process.env.EMAIL_HOST,
-            // port: 587,
-            // secure: false, // true for 465, false for other ports,
             service: process.env.EMAIL_SERVICE,
             auth: {
                 user: process.env.EMAIL_SENDER,
                 pass: process.env.EMAIL_PASS
-            },
-        // tls: {
-        //     // rejectUnauthorized: false //get rid of this in a production app   --->  MORE INFO: https://stackoverflow.com/questions/45088006/nodejs-error-self-signed-certificate-in-certificate-chain
-        // }
+            }
         });
 
         let info = transporter.sendMail({
