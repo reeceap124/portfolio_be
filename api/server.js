@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors')
 const helmet = require('helmet');
-const emailRouter = require('../routes/emailRoute')
+const emailRouter = require('../routes/emailRouter')
 
 
 const server = express();

@@ -23,29 +23,35 @@ router.post('/', (req, res)=>{
     <p>${req.body.message}</p>
     `;
 
-    async function main() {
-        let transporter = nodemailer.createTransport({
-            host: process.env.EMAIL_HOST,
-            port: 587,
-            secure: false, // true for 465, false for other ports
+    
+        let transporter = nodeMailer.createTransport({
+            // host: process.env.EMAIL_HOST,
+            // port: 587,
+            // secure: false, // true for 465, false for other ports,
+            service: process.env.EMAIL_SERVICE,
             auth: {
                 user: process.env.EMAIL_SENDER,
                 pass: process.env.EMAIL_PASS
             },
+        // tls: {
+        //     // rejectUnauthorized: false //get rid of this in a production app   --->  MORE INFO: https://stackoverflow.com/questions/45088006/nodejs-error-self-signed-certificate-in-certificate-chain
+        // }
         });
 
-        let info = await transporter.sendMail({
-            from: '"ReecePierson.com Contact Form" <testerEmail12321@mail.com>', // sender address
+        let info = transporter.sendMail({
+            from: `"ReecePierson.com" <${process.env.EMAIL_DESTINATION}>`, // sender address
             to: process.env.EMAIL_DESTINATION, // list of receivers: listed one is a disposable test account
-            subject: "ReecePierson.com Contact Request", // Subject line
+            subject: "New Contact Request", // Subject line
             text: "Hello world?", // plain text body //doesn't show up
             html: output // html body
             });
         
             console.log("Message sent: %s", info.messageId);
-            console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+            console.log("Preview URL: %s", nodeMailer.getTestMessageUrl(info));
     
             res.status(200).json({message: 'Email has been sent.'})
-    }
+    
 
 })
+
+module.exports = router
