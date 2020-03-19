@@ -33,7 +33,7 @@ router.post('/', (req, res)=>{
         });
 
         let info = transporter.sendMail({
-            from: `"ReecePierson.com" <${process.env.EMAIL_DESTINATION}>`, // sender address
+            from: `${req.body.name} via <${process.env.EMAIL_SENDER}>`, // sender address
             to: process.env.EMAIL_DESTINATION, // list of receivers: listed one is a disposable test account
             subject: "New Contact Request", // Subject line
             text: "Hello world?", // plain text body //doesn't show up
