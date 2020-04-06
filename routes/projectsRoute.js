@@ -35,4 +35,13 @@ router.put('/:projectId', (req, res)=>{
     })
 })
 
+router.delete('/:projectId', (req, res)=>{
+    const {projectId} = req.params;
+    db.deleteProject(projectId)
+    .then(deleted=>{
+        console.log('deleted', deleted)
+        res.status(200).json(deleted)
+    })
+})
+
 module.exports = router

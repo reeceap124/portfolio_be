@@ -5,7 +5,7 @@ module.exports = {
     getProjectById,
     addProject,
     updateProject,
-    // deleteProject,
+    deleteProject,
 }
 
 function getAllProjects(){
@@ -53,5 +53,8 @@ function deleteProject(id) {
     const deleteId = id
     const query = `DELETE FROM projects WHERE pid = ${deleteId}`
     return db.query(query)
-    .then(res=>console.log('delete res', res))
+    .then(res=> `Deleted project with id of ${deleteId}`)
+    .catch(err=>{
+        console.log('there was an error', err)
+    })
 }
