@@ -4,19 +4,21 @@ module.exports = {
     getAllProjects,
     getProjectById,
     addProject,
-    // updateProject,
+    updateProject,
     // deleteProject,
 }
 
 function getAllProjects(){
-   return db.query('SELECT * FROM projects')
+   return db.query('SELECT * FROM projects ORDER BY pid ASC')
    .then(projects => projects.rows)
-   .catch(e=>console.log('error', e.stack))
+   .catch(e=>console.log('there was an error', e))
 }
 
 function getProjectById(id){
-    return db.query(`SELECT * FROM projects WHERE pid = ${id}`)
+    const query = `SELECT * FROM projects WHERE pid = ${id}`
+    return db.query(query)
     .then(res => res.rows[0])
+    .catch(err=> console.log('there was an error', err))
 }
 
 function addProject(project){
@@ -29,4 +31,27 @@ function addProject(project){
     .catch(err=>{
         console.log('there was an error', err)
     })
+}
+
+function updateProject(id, updates){
+    const updateId = id
+    const values = [
+        updates.name,
+        updates.description,
+        updates.technologies,
+        updates.deployLink,
+        updates.githubLink,
+        updates.imgRef
+    ]
+    const query = `UPDATE projects SET name=$1, description=$2, technologies=$3, deployLink=$4, githubLink=$5, imgRef=$6 WHERE pid = ${updateId} RETURNING pid`
+    return db.query(query, values)
+    .then(res =>  getProjectById(res.rows[0].pid))
+    .catch(err=> console.log('there was an error', err))
+}
+
+function deleteProject(id) {
+    const deleteId = id
+    const query = `DELETE FROM projects WHERE pid = ${deleteId}`
+    return db.query(query)
+    .then(res=>console.log('delete res', res))
 }
