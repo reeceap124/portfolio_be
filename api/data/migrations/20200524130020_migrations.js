@@ -14,7 +14,7 @@ exports.up = function(knex) {
             tbl.string('technologies', 255).notNullable();
             tbl.string('deployLink',255);
             tbl.string('githubLink');
-            tbl.binary('imgRef')
+            tbl.string('imgRef', 500000);
         })
   )
 };
