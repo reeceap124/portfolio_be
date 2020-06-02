@@ -4,7 +4,6 @@ exports.up = function(knex) {
       knex.schema
         .createTable('users', (tbl)=> {
             tbl.increments();
-            tbl.string('name', 255)
             tbl.string('oktaId',255)
         })
         .createTable('projects', (tbl)=>{

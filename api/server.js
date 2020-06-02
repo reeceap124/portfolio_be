@@ -9,7 +9,7 @@ const bodyParser = require('body-parser')
 const server = express();
 server.use(bodyParser.json({limit: '500mb'}))
 server.use(bodyParser.urlencoded({ extended: true, limit: '500mb' }));
-server.use(helmet());
+nodemonserver.use(helmet());
 server.use(cors());
 server.use(express.json())
 server.use('/api/email', emailRouter)
