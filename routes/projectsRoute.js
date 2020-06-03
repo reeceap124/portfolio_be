@@ -1,6 +1,6 @@
 const router = require('express').Router();
-
 const db = require('../api/data/projects-model');
+const authRestrict = require('../middleware/restricted')
 
 router.get('/', (req, res)=>{
     db.getAllProjects()
@@ -14,7 +14,7 @@ router.get('/', (req, res)=>{
 })
 
 
-router.post('/', (req, res)=>{
+router.post('/', authRestrict, (req, res)=>{
     db.addProject(req.body)
     .then(data =>{
         res.status(201).json(data)
@@ -25,7 +25,7 @@ router.post('/', (req, res)=>{
     })
 })
 
-router.put('/:projectId', (req, res)=>{
+router.put('/:projectId', authRestrict, (req, res)=>{
     const {projectId} = req.params
     db.updateProject(projectId, req.body)
     .then(data=>res.status(201).json(data))
@@ -35,12 +35,15 @@ router.put('/:projectId', (req, res)=>{
     })
 })
 
-router.delete('/:projectId', (req, res)=>{
-    const {projectId} = req.params;
+router.delete('/:projectId', authRestrict, (req, res)=>{
+    
+        const {projectId} = req.params;
     db.deleteProject(projectId)
     .then(deleted=>{
         res.status(200).json(deleted)
     })
+    
+    
 })
 
 module.exports = router
