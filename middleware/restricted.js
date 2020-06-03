@@ -7,7 +7,7 @@ module.exports = (req, res, next) => {
         issuer: process.env.ISSUER,
         clientId: process.env.CLIENTID,
         assertClaims: {
-            aud: 'api://default'
+            aud: process.env.AUD
         }
     })
 

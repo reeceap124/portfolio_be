@@ -2,10 +2,6 @@
 exports.up = function(knex) {
   return (
       knex.schema
-        .createTable('users', (tbl)=> {
-            tbl.increments();
-            tbl.string('oktaId',255)
-        })
         .createTable('projects', (tbl)=>{
             tbl.increments();
             tbl.string('name',255).notNullable();
@@ -21,5 +17,4 @@ exports.up = function(knex) {
 exports.down = function(knex) {
   return knex.schema
     .dropTableIfExists('projects')
-    .dropTableIfExists('users')
 };
