@@ -8,7 +8,7 @@ const bodyParser = require('body-parser')
 
 const server = express();
 server.use(bodyParser.json({limit: '800mb'}))
-server.use(bodyParser.urlencoded({ extended: true, limit: '800mb' }));
+server.use(bodyParser.urlencoded({ extended: true, limit: '2000mb' }));
 server.use(helmet());
 server.use(cors());
 server.use(express.json())
